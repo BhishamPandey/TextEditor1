@@ -1,0 +1,29 @@
+.text-editor {
+  margin-left: 30px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: 'Segoe UI', sans-serif;
+
+  .toolbar {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+    background-color: #f8f8f8;
+  }
+
+  .editor-area {
+    padding: 10px;
+    min-height: 150px;
+    min-width: 500px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    outline: none;
+    user-select: text;
+  }
+
+  // .editor-paragraph {
+  //   margin: 0 0 8px 0;
+  //   line-height: 1.5;
+  // }
+}
