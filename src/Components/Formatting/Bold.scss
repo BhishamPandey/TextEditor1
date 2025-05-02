@@ -1,31 +1,19 @@
-.formatting-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    background-color: transparent;
-    border: 1px solid #e0e0e0;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.15s ease;
-    margin-right: 4px;
-    
-    &:hover {
-      background-color: #f5f5f5;
-    }
-    
-    &.active {
-      background-color: #e8f0fe;
-      border-color: #c6dafb;
-    }
+.bold-button {
+  font-weight: bold;
+  padding: 5px 10px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+
+  
+  &:hover {
+    background-color: #e5e5e5;
   }
   
-  .bold-button {
-    strong {
-      font-size: 14px;
-      line-height: 1;
-      font-weight: bold;
-    }
+  &:active {
+    background-color: #d5d5d5;
   }
+  
+  &.active {
+    background-color: #ddd;
+  }
+}

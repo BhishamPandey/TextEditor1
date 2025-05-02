@@ -1,0 +1,70 @@
+.formatting-button {
+    display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // width: 12px;
+    // height: 12px;
+    // padding: 4px;
+    padding-top: 10px;
+    // border: 1px solid transparent;
+    // border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    // transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #c1c7cd;
+    }
+    
+    &.active {
+      background-color: Black;
+      
+      svg {
+        path {
+          fill: #0066cc;
+          stroke: #0066cc;
+        }
+      }
+    }
+    
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      
+      &:hover {
+        background-color: transparent;
+      }
+      
+      svg {
+        path {
+          fill: #888;
+          stroke: #888;
+        }
+      }
+    }
+    
+    svg {
+      width: 24px;
+      height: 24px;
+      
+      path {
+        fill: #333;
+        stroke: #333;
+        transition: all 0.2s ease;
+      }
+    }
+    
+    &:active:not(.disabled) {
+      transform: scale(0.95);
+    }
+  }
+  
+.button-to-center {
+  // padding-top: 3px;
+}
+

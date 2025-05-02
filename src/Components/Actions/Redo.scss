@@ -1,0 +1,45 @@
+
+.formatting-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+  
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    &:focus {
+      outline: 1px solid #2684FF;
+    }
+    
+    &.active {
+      svg {
+        fill: #5F6368;
+      }
+    }
+    
+    &.disabled {
+      cursor: not-allowed;
+      svg {
+        fill: #C1C1C1;
+      }
+      
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }

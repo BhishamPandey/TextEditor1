@@ -1,0 +1,79 @@
+.emoji-picker-container {
+  position: relative;
+  display: inline-block;
+  
+  .emoji-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background-color: #f1f1f1;
+    }
+    
+    &:active {
+      background-color: #5d91f0;
+    }
+    
+    svg {
+      width: 24px;
+      height: 24px;
+      
+      path {
+        fill: #5F6368;
+        transition: fill 0.2s ease;
+      }
+    }
+    
+    &:hover svg path {
+      fill: #4285f4;
+    }
+    
+    &:active svg path {
+      fill: #ffffff;
+    }
+  }
+  
+  .emoji-picker-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 5px;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    
+    &:before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 15px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid #fff;
+      z-index: 1001;
+    }
+  }
+
+  :global(.EmojiPickerReact) {
+    --epr-hover-bg-color: #f2f2f2;
+    --epr-focus-bg-color: #e8f4ff;
+    --epr-highlight-color: #4dabf7;
+    
+  }
+}
+
+.button {
+margin-bottom: 10px;
+}

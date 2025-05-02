@@ -1,29 +1,371 @@
-.text-editor {
-  margin-left: 30px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-family: 'Segoe UI', sans-serif;
 
-  .toolbar {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    gap: 10px;
-    background-color: #f8f8f8;
+$primary-color: #fffdfd;
+$secondary-color: #6c757d;
+$border-color: #dee2e6;
+$toolbar-bg: #e9ecef;
+$toolbar-border: #e9ecef;
+$toolbar-button-hover: #e2e6ea;
+$toolbar-button-active: #1477ef;
+$editor-padding: 16px;
+$mobile-padding: 12px;
+$border-radius: 8px;
+$transition-speed: 0.2s;
+$box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+@mixin toolbar-button {
+  @include flex-center;
+  @include button-reset;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  color: $secondary-color;
+  transition: all $transition-speed ease;
+  
+  &:hover {
+    background-color: $toolbar-button-hover;
+    color: $primary-color;
   }
+  
+  &:active {
+    background-color: $toolbar-button-active;
+  }
+  
+  &.active {
+    background-color: $primary-color;
+    color: white;
+  }
+  
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
 
-  .editor-area {
+.text-editor-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  
+  @media (max-width: 768px) {
     padding: 10px;
-    min-height: 150px;
-    min-width: 500px;
-    white-space: pre-wrap;
-    word-break: break-word;
-    outline: none;
-    user-select: text;
   }
+}
 
-  // .editor-paragraph {
-  //   margin: 0 0 8px 0;
-  //   line-height: 1.5;
-  // }
+.text-editor {
+
+  height:400px;
+  background: white;
+  border: 1px solid black;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+  
+  .toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px $editor-padding;
+    // background-color: $toolbar-bg;
+    border-bottom: 1px solid black;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    
+    @media (max-width: 768px) {
+      padding: 8px $mobile-padding;
+      gap: 4px;
+    }
+    
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-right: 1px solid $toolbar-border;
+      padding-right: 8px;
+      margin-right: 8px;
+      
+      &:last-child {
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+      }
+      
+      @media (max-width: 480px) {
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+      }
+    }
+    
+    button {
+      @include toolbar-button;
+      
+      @media (max-width: 768px) {
+        width: 28px;
+        height: 28px;
+        
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+    
+    .dropdown {
+      position: relative;
+      
+      .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        box-shadow: $box-shadow;
+        padding: 8px;
+        z-index: 100;
+        min-width: 200px;
+        
+        @media (max-width: 480px) {
+          left: auto;
+          right: 0;
+          min-width: 160px;
+        }
+      }
+    }
+    
+    .color-picker-wrapper {
+      position: relative;
+      
+      input[type="color"] {
+        width: 32px;
+        height: 32px;
+        border: none;
+        padding: 0;
+        background: none;
+        cursor: pointer;
+        
+        @media (max-width: 768px) {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+    
+    .emoji-picker-wrapper {
+      position: relative;
+      
+      .emoji-picker {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        z-index: 1000;
+        
+        @media (max-width: 480px) {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          right: auto;
+        }
+      }
+    }
+  }
+  
+  .editor-area {
+    padding: $editor-padding;
+    min-height: 300px;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    outline: none;
+    background: white;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+    
+    @media (max-width: 768px) {
+      padding: $mobile-padding;
+      font-size: 14px;
+      min-height: 250px;
+    }
+    
+    &:empty:before {
+      content: attr(placeholder);
+      color: #adb5bd;
+      pointer-events: none;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: inset 0 0 0 2px $primary-color;
+    }
+    
+    p {
+      margin: 0 0 1em;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    a {
+      color: #0069d9;
+      text-decoration: underline;
+      cursor: pointer;
+      
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    
+    ol, ul {
+      margin: 0 0 1em;
+      padding-left: 2em;
+      
+      @media (max-width: 768px) {
+        padding-left: 1.5em;
+      }
+    }
+    
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+      
+      &:hover {
+        background: #a8a8a8;
+      }
+    }
+  }
+  
+  &.loading {
+    .editor-area {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .text-editor {
+    background: #1e1e1e;
+    border-color: #333;
+    
+    .toolbar {
+      background-color: #252526;
+      border-bottom-color: #333;
+      
+      button {
+        color: #ccc;
+        
+        &:hover {
+          background-color: #333;
+          color: white;
+        }
+        
+        &:active {
+          background-color: #444;
+        }
+        
+        &.active {
+          background-color: #6db3e9;
+          color: white;
+        }
+      }
+    }
+    
+    .editor-area {
+      background: #1e1e1e;
+      color: #e0e0e0;
+      
+      &:empty:before {
+        color: #666;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: #333;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #555;
+        
+        &:hover {
+          background: #666;
+        }
+      }
+    }
+  }
+}
+
+@media print {
+  .text-editor {
+    box-shadow: none;
+    border: none;
+    
+    .toolbar {
+      display: none;
+    }
+    
+    .editor-area {
+      min-height: auto;
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-editor * {
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .text-editor {
+    border: 2px solid currentColor;
+    
+    .toolbar {
+      border-bottom: 2px solid currentColor;
+      
+      button {
+        border: 1px solid currentColor;
+        
+        &:hover {
+          outline: 2px solid currentColor;
+        }
+      }
+    }
+  }
+}
+
+.text-editor .toolbar button.active {
+  background-color: #1890ff85;
+  color: white;
 }

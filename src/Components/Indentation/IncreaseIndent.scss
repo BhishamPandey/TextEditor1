@@ -1,0 +1,72 @@
+.increase-indent-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  &:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    
+    path {
+      fill: #505050;
+    }
+  }
+  
+  &:hover svg path {
+    fill: #303030;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+    svg path {
+      fill: #a0a0a0;
+    }
+  }
+}
+
+body.dark-theme {
+  .increase-indent-button {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    &:active {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    svg path {
+      fill: #d0d0d0;
+    }
+    
+    &:hover svg path {
+      fill: #ffffff;
+    }
+    
+    &:disabled svg path {
+      fill: #707070;
+    }
+  }
+}
